@@ -1,0 +1,45 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+.butt {
+  height: 200px;
+  width: 200px;
+  --border-radius: 50%;
+}
+
+.mapbut{
+  position: absolute;
+  width: 96%;
+  height: 33px;
+  left: 2%;
+  bottom: 1%;
+
+  background: #FCFCFC;
+  box-shadow: -2px -2px 12px rgba(255, 255, 255, 0.2), 2px 2px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
