@@ -1,10 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
-//import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { HttpClient } from '@angular/common/http';
 
 import Auth0Cordova from '@auth0/cordova';
-import * as auth0 from 'auth0-js';;
+import * as auth0 from 'auth0-js';
+import { environment } from 'src/environments/environment';
 
 const auth0Config = {
   // needed for auth0
@@ -31,10 +32,13 @@ export class AuthenticationService {
   loggedIn: boolean;
   loading = true;
 
-  constructor(public zone: NgZone, private storage: NativeStorage, private safariViewController: SafariViewController) {    
+  signupURL:string
+
+  constructor(private http:HttpClient, public zone: NgZone, private storage: NativeStorage, private safariViewController: SafariViewController) {    
+    this.signupURL = environment.signupurl
     this.storage.getItem('profile').then(user => this.user = user, error=>console.log('get Error', error));
     this.storage.getItem('access_token').then(token => this.accessToken = token, error=>console.log('get Error', error));
-    
+    console.log('user', this.user)
     this.storage.getItem('expires_at').then(exp => {
       if(exp){
         this.loggedIn = Date.now() < JSON.parse(exp);
@@ -72,11 +76,15 @@ export class AuthenticationService {
           // Fetch user's profile info
          
           this.Auth0.client.userInfo(this.accessToken, (err, profile) => {
-            console.log('fetching user info')
+            console.log('fetching user info', profile)
             if (err) {
               console.log('got error',err)
               throw err;
             }
+            this.updataBackend(profile['sub']).subscribe(data=>{
+              console.log(data),
+              err=>console.log(err)
+            })
             this.storage.setItem('profile', profile).then(val =>
               this.zone.run(() => this.user = profile),err=>console.log('prof',err)
             ).catch(e=>console.log('error',e));
@@ -91,6 +99,10 @@ export class AuthenticationService {
       data => console.log(data),
       error => console.error('then',error)
     ).catch(err=>console.log('catch',err));
+  }
+
+  updataBackend(user){
+    return this.http.post(this.signupURL,{uid:user})
   }
 
   logout() {

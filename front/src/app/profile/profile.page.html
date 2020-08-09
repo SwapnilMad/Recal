@@ -1,9 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-item>
+    <ion-img class='bgimg' [src]='profileimg'></ion-img>
+  </ion-item>
+<div class='label'>
+  <ion-label class='name'>{{name}}</ion-label><br />
+  <ion-label class='email'>{{email}}</ion-label>
+</div>
+<div id='score'>
+  <ion-img [src]='points'></ion-img>
+  <ion-label>{{point}}</ion-label>
+</div>
 </ion-content>

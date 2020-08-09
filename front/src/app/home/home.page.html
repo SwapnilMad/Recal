@@ -94,11 +94,11 @@
   
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="reward">
+      <ion-tab-button id='rb' (click)='hide("reward")' tab="reward">
         <ion-img [src]='reward_button'></ion-img>
       </ion-tab-button>
 
-      <ion-tab-button tab="scan">
+      <ion-tab-button id='sb' style="display: none;" (click)='hide("scan")' tab="scan">
         <ion-img [src]='home_button'></ion-img>
       </ion-tab-button>
   
@@ -106,7 +106,7 @@
         <ion-img (click)='getMap()' [src]='map_button'></ion-img>
       </ion-tab-button>
   
-      <ion-tab-button tab="profile">
+      <ion-tab-button id='pb' (click)='hide("profile")' tab="profile">
         <ion-img [src]='profile_button'></ion-img>
       </ion-tab-button>
     </ion-tab-bar>

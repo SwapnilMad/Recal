@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { QrserviceService} from '../qr/qrservice.service'
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-scan',
@@ -10,7 +12,7 @@ import { QrserviceService} from '../qr/qrservice.service'
 export class ScanPage implements OnInit {
   camera_img = '/assets/camera.png'
   
-  constructor(private qrScanCtrl: QRScanner, private socketservice: QrserviceService) { }
+  constructor(public toastController: ToastController, private qrScanCtrl: QRScanner, private socketservice: QrserviceService,private storage:NativeStorage) { }
   ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
 
   scanqr(){
@@ -18,10 +20,19 @@ export class ScanPage implements OnInit {
       if (status.authorized) {
         this.ionApp.style.display = 'none';
         const scanSub = this.qrScanCtrl.scan().subscribe((text) => {
-          this.socketservice.setupSocketConnection(text)
-          this.socketservice.socket.on('hi', (data) => console.log(data), (err) => console.log(err))
           this.qrScanCtrl.hide(); 
           this.ionApp.style.display = 'block'
+          this.storage.getItem('profile').then(data=>{
+            let userId = data['sub']
+            this.socketservice.postUserData(userId, text).subscribe(async (data)=>{
+              const toast = await this.toastController.create({
+                message: data.toString(),
+                duration: 2000
+              });
+              toast.present();
+            },error=>console.log(error))
+          })
+
           scanSub.unsubscribe(); 
             
           },(err)=>{

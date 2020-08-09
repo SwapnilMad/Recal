@@ -15,6 +15,7 @@ import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 //import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
+import { UserinfoService } from './userinfo.service'
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { AuthenticationService } from './authentication.service';
     SafariViewController,
     QRScanner,
     QrserviceService,
+    UserinfoService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

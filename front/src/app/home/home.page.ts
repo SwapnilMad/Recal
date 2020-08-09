@@ -22,8 +22,29 @@ export class HomePage implements AfterViewInit {
 
   showMe:boolean=true
   @ViewChild('mySlider')  slides: IonSlides;
-
+  prev
+  rb
+  sb
+  pb
   constructor(public modalController: ModalController, public auth:AuthenticationService) {
+    
+  }
+  hide(data){
+    console.log(data)
+    if(data=='reward'){
+      console.log(this.rb)
+      this.rb.style.setProperty('display','none')
+      this.prev.style.setProperty('display', 'block')
+      this.prev=this.rb
+    }else if(data=='scan'){
+      this.sb.style.setProperty('display','none')
+      this.prev.style.setProperty('display', 'block')
+      this.prev=this.sb
+    }else if(data=='profile'){
+      this.pb.style.setProperty('display','none')
+      this.prev.style.setProperty('display', 'block')
+      this.prev=this.pb
+    }
     
   }
 
@@ -32,7 +53,10 @@ export class HomePage implements AfterViewInit {
   }
   
   ngAfterViewInit(): void {
-  
+    this.prev=<HTMLElement>document.getElementById('sb');
+    this.rb = <HTMLElement>document.getElementById('rb');
+    this.sb = <HTMLElement>document.getElementById('sb');
+    this.pb = <HTMLElement>document.getElementById('pb');
   }
    
   ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];

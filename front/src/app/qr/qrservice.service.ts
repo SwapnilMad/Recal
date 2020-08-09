@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,12 @@ import { environment } from '../../environments/environment';
 export class QrserviceService {
   
   socket;
+  URL
+  constructor(private http: HttpClient) { 
+    this.URL = environment.qrurl
+  }
 
-  constructor() { }
-
-  setupSocketConnection(names) {
-    console.log(environment.SOCKET_ENDPOINT+names)
-    this.socket = io(environment.SOCKET_ENDPOINT+names);
+  postUserData(uid, data){
+    return this.http.post(this.URL,{userId:uid, code:data})
   }
 }

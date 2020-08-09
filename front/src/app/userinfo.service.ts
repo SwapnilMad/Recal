@@ -10,7 +10,6 @@ export class UserinfoService {
 
   URL
   constructor(private http: HttpClient) {
-    
     this.URL = environment.resturl
    }
 
