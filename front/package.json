@@ -35,9 +35,12 @@
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-plugin-qrscanner": "^3.0.1",
     "cordova-plugin-safariviewcontroller": "^1.6.0",
+    "cordova-res": "^0.15.1",
     "cordova-sqlite-storage": "^5.0.1",
     "mapbox-gl": "^1.11.1",
+    "ng-circle-progress": "^1.5.1",
     "rxjs": "~6.5.1",
+    "sharp": "^0.25.4",
     "socket.io-client": "^2.3.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

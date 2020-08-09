@@ -7,7 +7,9 @@ export const environment = {
   SOCKET_ENDPOINT: 'https://recollect0.herokuapp.com/',
   mapbox: {
     accessToken: 'pk.eyJ1Ijoic205NDk4MG4iLCJhIjoiY2tkamh3Znh1MDNybjJycGZqeDQ5bmJsYyJ9.NLlJbiEunS-AInAXYWI-rQ'
-  }
+  },
+  resturl: 'http://recollect0.herokuapp.com/users/',
+  key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwidXNlcklkIjoiNWYxN2I5ODRkNzk1YjQyODk4NzM0ZTgwIiwiaWF0IjoxNTk2OTM0MDg4LCJleHAiOjE1OTcxOTMyODh9.YzS6NvMM4UG5dVe6atO8POwWjYjHrLDGNkjMyGFynbQ'
 };
 
 /*

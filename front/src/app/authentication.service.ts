@@ -31,20 +31,20 @@ export class AuthenticationService {
   loggedIn: boolean;
   loading = true;
 
-  constructor(public zone: NgZone, private storage: NativeStorage, private safariViewController: SafariViewController) {
-    console.log('initial')
-      
-      storage.getItem('profile').then(user => this.user = user, error=>console.log('get Error', error));
-      storage.getItem('access_token').then(token => this.accessToken = token, error=>console.log('get Error', error));
-      
-      storage.getItem('expires_at').then(exp => {
-        console.log('exp', exp)
-        if(exp){
-          
-          this.loggedIn = Date.now() < JSON.parse(exp);
-          this.loading = false;
-        }
-      }, error=>this.login());
+  constructor(public zone: NgZone, private storage: NativeStorage, private safariViewController: SafariViewController) {    
+    this.storage.getItem('profile').then(user => this.user = user, error=>console.log('get Error', error));
+    this.storage.getItem('access_token').then(token => this.accessToken = token, error=>console.log('get Error', error));
+    
+    this.storage.getItem('expires_at').then(exp => {
+      if(exp){
+        this.loggedIn = Date.now() < JSON.parse(exp);
+        this.loading = false;
+      }
+    }, error=>{
+      this.storage.setItem('initial', true)
+      this.storage.setItem('map_initial', true)
+      this.login()  
+    });
   }
 
   login() {
@@ -65,7 +65,7 @@ export class AuthenticationService {
           this.accessToken = authResult.accessToken;
           // Set access token expiration
           const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-          this.storage.setItem('expires_at', expiresAt).then(data=>console.log('exp',data),err=>console.log("err",err));
+          this.storage.setItem('expires_at', expiresAt).then(data=>console.log('exp stored'),err=>console.log("err",err));
           // Set logged in
           this.loading = false;
           this.loggedIn = true;
@@ -79,7 +79,7 @@ export class AuthenticationService {
             }
             this.storage.setItem('profile', profile).then(val =>
               this.zone.run(() => this.user = profile),err=>console.log('prof',err)
-            ).catch(e=>console.log('zone wala',e));
+            ).catch(e=>console.log('error',e));
           });
       });
     } catch (error) {
@@ -89,8 +89,8 @@ export class AuthenticationService {
     
     this.storage.keys().then(
       data => console.log(data),
-      error => console.error(error)
-    );
+      error => console.error('then',error)
+    ).catch(err=>console.log('catch',err));
   }
 
   logout() {

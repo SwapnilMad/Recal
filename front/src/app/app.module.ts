@@ -13,13 +13,13 @@ import { QrserviceService } from './qr/qrservice.service'
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 //import { IonicStorageModule } from '@ionic/storage';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
