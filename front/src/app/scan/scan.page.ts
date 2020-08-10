@@ -23,7 +23,7 @@ export class ScanPage implements OnInit {
           this.qrScanCtrl.hide(); 
           this.ionApp.style.display = 'block'
           this.storage.getItem('profile').then(data=>{
-            let userId = data['sub']
+            let userId = data['sub'].replace('|','')
             this.socketservice.postUserData(userId, text).subscribe(async (data)=>{
               const toast = await this.toastController.create({
                 message: data.toString(),

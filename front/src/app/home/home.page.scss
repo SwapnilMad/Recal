@@ -4,7 +4,7 @@ ion-slide>.cam_grad{
 }
 
 ion-tab-bar{
-  height: 20%;
+  height: 10%;
   border: none;
 }
 
@@ -20,6 +20,10 @@ ion-slide{
 ion-list{
   padding-top: 0;
   padding-bottom: 0;
+}
+
+ion-tab-button>ion-img{
+  height: 10vh;
 }
 
 .mapbut{

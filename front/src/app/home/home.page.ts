@@ -30,7 +30,6 @@ export class HomePage implements AfterViewInit {
     
   }
   hide(data){
-    console.log(data)
     if(data=='reward'){
       console.log(this.rb)
       this.rb.style.setProperty('display','none')
